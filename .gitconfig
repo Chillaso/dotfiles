@@ -1,0 +1,14 @@
+[alias]
+	ck = checkout
+	lod = log --oneline --decorate=short --color --graph --max-count=15 
+	st = status
+	cam = commit -am
+[pull]
+	rebase = false
+[pager]
+	stash = false
+	lod = false
+[credential]
+	helper = store
+[diff]
+	tool = meld
