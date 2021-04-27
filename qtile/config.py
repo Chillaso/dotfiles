@@ -303,34 +303,48 @@ def init_widgets_list():
                        ),
     	      widget.KeyboardLayout(
 			configured_keyboards = ['us', 'es'],
-			background = colors[0],
+			background = colors[5],
 			foreground = colors[2],
 			display_map = {'us':'us','es':'es'}
 			),
-              widget.TextBox( text = '📶',
-                       background = colors[0],
-                       foreground = colors[4],
-                       padding = 0,
-                       fontsize = 20
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 2,
+                       foreground = colors[0],
+                       background = colors[0]
                        ),
-             widget.Net( interface = "wlo1",
-                       format = '{down} ↓↑ {up}',
+              widget.TextBox(
+                      text = " Battery:",
+                       background = colors[5],
                        foreground = colors[2],
-                       background = colors[4],
+                       padding = 0
+                       ),
+              widget.Battery(
+                       background = colors[5],
+                       foreground = colors[2],
                        padding = 5
                        ),
               widget.TextBox(
-                       text = " 💾",
-                       foreground = colors[2],
+                       text = '🔊',
                        background = colors[5],
+                       foreground = colors[5],
                        padding = 0,
-                       fontsize = 14
+                       fontsize = 15
                        ),
-              widget.Memory(
-                       foreground = colors[2],
+              widget.TextBox(
+                      text = " Vol:",
                        background = colors[5],
-                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
-                       padding = 5
+                       foreground = colors[2],
+                       padding = 0
+                       ),
+              widget.Volume(
+                       background = colors[5],
+                       foreground = colors[2],
+                       padding = 5,
+		       volume_app = 'pulse',
+		       volume_up_command = 'amixer -D pulse set Master 5%+',
+                       volume_down_command = 'amixer -D pulse set Master 5%-',
+                       mute_command = 'amixer -D pulse set Master toggle'
                        ),
               widget.TextBox(
                        text = " ₿",
@@ -343,29 +357,8 @@ def init_widgets_list():
                        foreground = colors[2],
                        background = colors[4],
                        padding = 5,
-		       currency="EUR"
-                       ),
-              widget.TextBox(
-                       text = '🔊',
-                       background = colors[5],
-                       foreground = colors[5],
-                       padding = 0,
-                       fontsize = 15
-                       ),
-              widget.TextBox(
-                      text = " Vol:",
-                       foreground = colors[2],
-                       background = colors[5],
-                       padding = 0
-                       ),
-              widget.Volume(
-                       foreground = colors[2],
-                       background = colors[5],
-                       padding = 5,
-		       volume_app = 'pulse',
-		       volume_up_command = 'amixer -D pulse set Master 5%+',
-                       volume_down_command = 'amixer -D pulse set Master 5%-',
-                       mute_command = 'amixer -D pulse set Master toggle'
+		       currency="EUR",
+		       update_interval = 120
                        ),
               widget.CurrentLayoutIcon(
                        custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
