@@ -1,56 +1,31 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
- export ZSH="/home/chillaso/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+export ZSH="/home/chillaso/.oh-my-zsh"
 ZSH_THEME="muse"
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# Vim mode
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+#autoload -Uz compinit && compinit -i
+autoload -U compinit
+compinit
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+# history setup
+setopt SHARE_HISTORY
+HISTFILE=$HOME/.zsh_history
+SAVEHIST=1000
+HISTSIZE=999
+setopt HIST_EXPIRE_DUPS_FIRST
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+# CTRL K CTRL J SEARCH HISTORY
+bindkey '^K' history-beginning-search-backward
+bindkey '^J' history-beginning-search-forward
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-#DOCKER
 fpath=(~/.zsh/completion $fpath)
-autoload -Uz compinit && compinit -i
 
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker docker-compose kubectl golang)
+plugins=(git docker docker-compose kubectl golang copyfile helm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -59,7 +34,9 @@ alias actualizar="sudo apt-get update && sudo apt-get upgrade -y"
 alias limpiar="sudo apt-get autoremove -y"
 alias apagar="actualizar && limpiar && poweroff"
 alias python="python3.8"
-alias aws-ecr-token="aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 172380189452.dkr.ecr.eu-west-1.amazonaws.com"
+alias sct="gnome-screenshot -acf /tmp/test && xclip -selection clipboard -target image/png /tmp/test"
+alias config="vim ~/.zshrc"
+alias update-config="source ~/.zshrc"
 
 # ALIAS DE SHORTCUTS
 alias dc="docker-compose"
@@ -68,6 +45,10 @@ alias k="kubectl"
 alias salary="/home/chillaso/proyectos/salary-calc/salary-calc"
 alias cdp="cd ~/proyectos/"
 alias rs="cd ~/proyectos/restock/"
+alias citrix="/opt/Citrix/ICAClient/selfservice"
+alias pulse="/usr/local/pulse/pulseUi"
+alias intellij="sh /opt/intellij/bin/idea.sh"
+
 
 # NVM completion
 export NVM_DIR="$HOME/.nvm"
@@ -78,10 +59,13 @@ export NVM_DIR="$HOME/.nvm"
 
 # Pulsesecure
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/pulse/extra/usr/lib/x86_64-linux-gnu/
+
 # Kubeconfig
-export KUBECONFIG=$HOME/.kube/config
+#export KUBECONFIG=$HOME/.kube/config
+export KUBECONFIG=$HOME/.kube/config.cluster-merge:$HOME/.kube/config.chilla:$HOME/.kube/config.endurance:$HOME/.kube/config.batavia:$HOME/.kube/config.mylocal
 
 alias k=kubectl
 complete -F __start_kubectl k
 
-export PATH=/home/chillaso/.gvm/bin:/home/chillaso/.nvm/versions/node/v14.16.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/intellij/bin/idea.sh
+# PATH
+export PATH=/opt/apache-maven-3.8.2/bin:$HOME/.krew/bin:$PATH
