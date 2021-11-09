@@ -49,7 +49,7 @@ keys = [
 	      lazy.spawncmd(),
               desc="Spawn a command using a prompt widget"
 	     ),
-	  Key([mod, "shift"], "s", 
+	  Key([mod, "shift"], "x", 
 	      #lazy.spawn('gnome-screenshot -acf /tmp/test && xclip -selection clipboard -target image/png /tmp/test'),
 	      lazy.spawn('sct'),
               desc="Take an screenshot"),
@@ -73,11 +73,11 @@ keys = [
              desc='Keyboard focus to monitor 1'
              ),
          Key([mod], "e",
-             lazy.to_screen(1),
+             lazy.to_screen(2),
              desc='Keyboard focus to monitor 2'
              ),
          Key([mod], "r",
-             lazy.to_screen(2),
+             lazy.to_screen(1),
              desc='Keyboard focus to monitor 3'
              ),
          ### Switch focus of monitors
@@ -155,12 +155,12 @@ keys = [
              ),
 ]
 
-group_names = [("WWW", {'layout': 'monadtall'}),
+group_names = [("WEB", {'layout': 'monadtall'}),
+               ("VM", {'layout': 'max'}),
                ("DEV", {'layout': 'monadtall'}),
-               ("VM", {'layout': 'monadtall'}),
                ("CHAT", {'layout': 'monadtall'}),
-               ("TEL", {'layout': 'monadtall'}),
                ("MUS", {'layout': 'monadtall'}),
+               ("OFF", {'layout': 'monadtall'}),
                ("7", {'layout': 'monadtall'}),
                ("8", {'layout': 'monadtall'}),
                ("9", {'layout': 'floating'})]
@@ -189,28 +189,28 @@ layouts = [
     #layout.Zoomy(**layout_theme),
     layout.MonadTall(**layout_theme),
     layout.Max(**layout_theme),
-    layout.Stack(num_stacks=2),
+#    layout.Stack(num_stacks=2),
     layout.RatioTile(**layout_theme),
-    layout.TreeTab(
-         font = "Ubuntu",
-         fontsize = 10,
-         sections = ["FIRST", "SECOND", "THIRD", "FOURTH"],
-         section_fontsize = 10,
-         border_width = 2,
-         bg_color = "1c1f24",
-         active_bg = "c678dd",
-         active_fg = "000000",
-         inactive_bg = "a9a1e1",
-         inactive_fg = "1c1f24",
-         padding_left = 0,
-         padding_x = 0,
-         padding_y = 5,
-         section_top = 10,
-         section_bottom = 20,
-         level_shift = 8,
-         vspace = 3,
-         panel_width = 200
-         ),
+#    layout.TreeTab(
+#         font = "Ubuntu",
+#         fontsize = 10,
+#         sections = ["FIRST", "SECOND", "THIRD", "FOURTH"],
+#         section_fontsize = 10,
+#         border_width = 2,
+#         bg_color = "1c1f24",
+#         active_bg = "c678dd",
+#         active_fg = "000000",
+#         inactive_bg = "a9a1e1",
+#         inactive_fg = "1c1f24",
+#         padding_left = 0,
+#         padding_x = 0,
+#         padding_y = 5,
+#         section_top = 10,
+#         section_bottom = 20,
+#         level_shift = 8,
+#         vspace = 3,
+#         panel_width = 200
+#         ),
     layout.Floating(**layout_theme)
 ]
 
@@ -243,8 +243,9 @@ def init_widgets_list():
                        background = colors[0]
                        ),
               widget.Image(
-                       filename = "~/.config/qtile/icons/python-white.png",
-                       scale = "False",
+                       background = colors[0],
+                       filename = "~/.config/qtile/icons/golang.png",
+                       scale = "True",
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm)}
                        ),
              widget.Sep(
@@ -357,7 +358,7 @@ def init_widgets_list():
                        foreground = colors[2],
                        background = colors[4],
                        padding = 5,
-		       currency="EUR",
+		       currency="USD",
 		       update_interval = 120
                        ),
               widget.CurrentLayoutIcon(
@@ -447,7 +448,7 @@ dgroups_app_rules = []  # type: List
 main = None
 follow_mouse_focus = True
 bring_front_click = False
-cursor_warp = False
+cursor_warp = True
 
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
