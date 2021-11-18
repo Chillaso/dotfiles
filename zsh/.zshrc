@@ -1,14 +1,7 @@
 export ZSH="/home/chillaso/.oh-my-zsh"
 ZSH_THEME="muse"
 
-# Vim mode
 zmodload zsh/complist
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-
-#autoload -Uz compinit && compinit -i
 autoload -U compinit
 compinit
 
@@ -20,12 +13,18 @@ HISTSIZE=999
 setopt HIST_EXPIRE_DUPS_FIRST
 
 # CTRL K CTRL J SEARCH HISTORY
-bindkey '^K' history-beginning-search-backward
-bindkey '^J' history-beginning-search-forward
+function zvm_after_init() {
+  bindkey '^K' history-beginning-search-backward
+  bindkey '^J' history-beginning-search-forward
+  bindkey -M menuselect 'h' vi-backward-char
+  bindkey -M menuselect 'k' vi-up-line-or-history
+  bindkey -M menuselect 'l' vi-forward-char
+  bindkey -M menuselect 'j' vi-down-line-or-history
+}
 
 fpath=(~/.zsh/completion $fpath)
 
-plugins=(git docker docker-compose kubectl golang copyfile helm)
+plugins=(git docker docker-compose kubectl golang copyfile helm zsh-vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -34,6 +33,7 @@ alias actualizar="sudo apt-get update && sudo apt-get upgrade -y"
 alias limpiar="sudo apt-get autoremove -y"
 alias apagar="actualizar && limpiar && poweroff"
 alias python="python3.8"
+alias aws-ecr-token="aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 172380189452.dkr.ecr.eu-west-1.amazonaws.com"
 alias sct="gnome-screenshot -acf /tmp/test && xclip -selection clipboard -target image/png /tmp/test"
 alias config="vim ~/.zshrc"
 alias update-config="source ~/.zshrc"
