@@ -3,6 +3,7 @@
 from libqtile.config import Key
 from libqtile.command import lazy
 from libqtile.utils import guess_terminal
+from scripts.lock_screen import lock_screen
 
 mod = "mod4"
 myTerm = guess_terminal()
@@ -46,6 +47,9 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod], "e", lazy.to_screen(2)),
     ([mod], "r", lazy.to_screen(1)),
 
+    # Lock screen, dependencies: xautolock, i3lock, imagemagick
+    ([mod, "shift"], "x", lazy.function(lock_screen())),
+
     # Qtile control
     ([mod, "control"], "r", lazy.restart()),
     ([mod, "control"], "q", lazy.shutdown()),
@@ -54,6 +58,7 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # ------------ App Configs ------------
     # Terminal
     ([mod], "Return", lazy.spawn(myTerm)),
+    ([mod], "t", lazy.spawncmd()),
 
     # Menu
     ([mod], "m", lazy.spawn("rofi -show drun")),
