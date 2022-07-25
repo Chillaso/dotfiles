@@ -1,7 +1,7 @@
 # Qtile keybindings
 
 from libqtile.config import Key
-from libqtile.command import lazy
+from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from scripts.lock_screen import lock_screen
 

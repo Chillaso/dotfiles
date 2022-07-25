@@ -1,7 +1,7 @@
 # Qtile workspaces
 
 from libqtile.config import Key, Group
-from libqtile.command import lazy
+from libqtile.lazy import lazy
 from .keys import mod, keys
 
 
@@ -11,13 +11,13 @@ from .keys import mod, keys
 # nf-mdi-monitor, 
 # nf-dev-terminal, 
 # nf-fa-code, 
-# nf-mdi-wechat, 
+# nf-mdi-message, 
 # nf-mdi-spotify,
 # nf-mdi-coffee, 
 # nf-mdi-vpn
 
 groups = [Group(i) for i in [
-    "   ", "   ", "   ", "   ", " ﬐  ", " 阮 ", "   ", " 嬨 ", "   ",
+    "   ", "   ", "   ", "   ", "   ", " 阮  ", "   ", " 嬨  ", "   ",
 ]]
 
 for i, group in enumerate(groups):

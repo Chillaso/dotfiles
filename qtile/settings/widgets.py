@@ -23,6 +23,15 @@ def icon(fg='text', bg='dark', fontsize=16, text="?"):
         padding=3
     )
 
+def prompt(fg='light', bg='dark'):
+    prompt = "~:"
+    return widget.Prompt(
+          **base(fg, bg),
+           prompt = prompt,
+           font = "UbuntuMono Nerd Font",
+           padding = 10
+    )
+
 
 def powerline(fg="light", bg="dark"):
     return widget.TextBox(
@@ -41,8 +50,9 @@ def keyboardlayout(fg="light", bg="dark"):
     )
 
 def bitcoin(fg="light", bg="dark"):
-    return widget.BitcoinTicker(
+    return widget.CryptoTicker(
           **base(fg, bg),
+          crypto = 'BTC',
           padding = 5,
           currency="USD",
           update_interval = 120
@@ -80,6 +90,10 @@ def workspaces():
 
 primary_widgets = [
     *workspaces(),
+
+    separator(),
+    
+    prompt('color4', 'dark'),
 
     separator(),
     
