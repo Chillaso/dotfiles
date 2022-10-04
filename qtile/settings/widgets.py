@@ -41,6 +41,17 @@ def powerline(fg="light", bg="dark"):
         padding=-2
     )
 
+def batteryIcon(fg="light", bg="dark"):
+    return widget.BatteryIcon(
+          **base(fg, bg)
+    )
+
+def batteryText(fg="light", bg="dark"):
+    return widget.Battery(
+          **base(fg, bg),
+          format = "{percent:2.0%}",
+          padding = 3
+    )
 
 def keyboardlayout(fg="light", bg="dark"):
     return widget.KeyboardLayout(
@@ -120,6 +131,10 @@ primary_widgets = [
     icon(bg="color3", text=' '),  # Icon: nf-dev-database
     
     widget.Systray(background=colors['color3'], padding=6),
+
+#    batteryIcon(fg="dark", bg="color3"),
+
+#    batteryText(fg="dark", bg="color3"),
 
     powerline('color2', 'color3'),
 

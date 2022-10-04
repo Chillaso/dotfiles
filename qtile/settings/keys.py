@@ -53,6 +53,11 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # Qtile control
     ([mod, "control"], "r", lazy.restart()),
     ([mod, "control"], "q", lazy.shutdown()),
+
+    # Gnome Qtile control
+    #([mod, 'control'], 'l', lazy.spawn('gnome-screensaver-command -l')),
+    #([mod, 'control'], 'q', lazy.spawn('gnome-session-quit --logout --no-prompt')),
+    #([mod, 'shift', 'control'], 'q', lazy.spawn('gnome-session-quit --power-off')),
     
 
     # ------------ App Configs ------------
