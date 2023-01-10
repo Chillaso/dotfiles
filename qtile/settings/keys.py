@@ -5,7 +5,8 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from scripts.lock_screen import lock_screen
 
-mod = "mod4"
+# mod4 = windows / mod1 = macOS
+mod = "mod1"
 myTerm = guess_terminal()
 
 keys = [Key(key[0], key[1], *key[2:]) for key in [
