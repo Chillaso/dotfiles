@@ -6,7 +6,7 @@ from libqtile.utils import guess_terminal
 from scripts.lock_screen import lock_screen
 
 # mod4 = windows / mod1 = macOS
-mod = "mod1"
+mod = "mod4"
 myTerm = guess_terminal()
 
 keys = [Key(key[0], key[1], *key[2:]) for key in [
@@ -73,7 +73,7 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod, "shift"], "m", lazy.spawn("rofi -show")),
 
     # Browser
-    ([mod, "shift"], "Return", lazy.spawn("firefox")),
+    ([mod, "shift"], "Return", lazy.spawn("microsoft-edge")),
 
     # File Explorer
     ([mod, "shift"], "e", lazy.spawn("nautilus")),

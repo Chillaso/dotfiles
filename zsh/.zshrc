@@ -1,5 +1,13 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 export ZSH="/home/chillaso/.oh-my-zsh"
-ZSH_THEME="muse"
+#ZSH_THEME="muse"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 zmodload zsh/complist
 autoload -U compinit
@@ -24,7 +32,7 @@ function zvm_after_init() {
 
 fpath=(~/.zsh/completion $fpath)
 
-plugins=(git docker docker-compose kubectl golang copyfile helm zsh-vi-mode)
+plugins=(git docker docker-compose kubectl golang copyfile helm zsh-vi-mode sudo)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -34,9 +42,15 @@ alias limpiar="sudo apt-get autoremove -y"
 alias apagar="actualizar && limpiar && poweroff"
 alias python="python3.8"
 alias aws-ecr-token="aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 172380189452.dkr.ecr.eu-west-1.amazonaws.com"
-alias sct="gnome-screenshot -acf /tmp/test && xclip -selection clipboard -target image/png /tmp/test"
+alias sct="scrot -s -o /tmp/sct.png; xclip -sel clipboard -target image/png /tmp/sct.png"
 alias config="vim ~/.zshrc"
 alias update-config="source ~/.zshrc"
+alias epo="cd ~/epo/pins"
+alias kd="cd ~/epo/pins/kd-pins"
+alias dckrminone="docker rmi $(docker images | awk '{print $2"-"$3}' | grep \<none\> | sed 's/<none>-//')"
+alias kdebug="kubectl run -i --tty --rm debug --image=busybox --restart=Never -- sh"
+alias xclip="xclip -selection clipboard"
+
 
 # ALIAS DE SHORTCUTS
 alias dc="docker-compose"
@@ -48,6 +62,8 @@ alias rs="cd ~/proyectos/restock/"
 alias citrix="/opt/Citrix/ICAClient/selfservice"
 alias pulse="/usr/local/pulse/pulseUi"
 alias intellij="sh /opt/intellij/bin/idea.sh"
+alias cat="batcat"
+alias lcat="/usr/bin/cat"
 
 
 # NVM completion
@@ -68,4 +84,27 @@ alias k=kubectl
 complete -F __start_kubectl k
 
 # PATH
-export PATH=/opt/apache-maven-3.8.2/bin:$HOME/.krew/bin:$PATH
+export PATH=/opt/apache-maven-3.8.2/bin:$HOME/.krew/bin:$HOME/bin:$PATH
+
+# PUPPETEER
+export GOOGLE_CHROME_DATA_DIR="/home/chillaso/.config/google-chrome/Default/Local Storage"
+export GOOGLE_CHROME_BIN="/usr/bin/google-chrome"
+
+# FUNCTIONS
+# Extract nmap information
+# Run as: 
+# extractPorts allPorts
+function extractPorts(){
+	ports="$(cat $1 | grep -oP '\d{1,5}/open' | awk '{print $1}' FS='/' | xargs | tr ' ' ',')"
+	ip_address="$(cat $1 | grep -oP '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' | sort -u | head -n 1)"
+	echo -e "\n[*] Extracting information...\n" > extractPorts.tmp
+	echo -e "\t[*] IP Address: $ip_address"  >> extractPorts.tmp
+	echo -e "\t[*] Open ports: $ports\n"  >> extractPorts.tmp
+	echo $ports | tr -d '\n' | xclip -sel clip
+	echo -e "[*] Ports copied to clipboard\n"  >> extractPorts.tmp
+	cat extractPorts.tmp; rm extractPorts.tmp
+}
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export PATH="/home/chillaso/.gvm/go/bin:$PATH"
