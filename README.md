@@ -6,6 +6,7 @@
 * [Zsh](zsh/.zshrc) - Shell
 * [Vim](vim/.vimrc) - File editor
 * [Qtile](qtile/) - Windows tile manager
+* [Rofi](Rofi/) - Windows switcher
 
 ## Requirements
 
@@ -47,6 +48,17 @@ cp ~/dotfiles/vim/.vimrc ~/.vimrc
 ```
 
 ### Qtile
+
+### Rofi
+1. Install rofi
+```shell
+sudo apt install -y rofi
+```
+2. Move config.rasi and rofi theme to right location
+```shell
+mv config.rasi ~/.config/rasi/
+mv onedark.rasi /usr/share/rofi/themes/
+```
 
 ### Git
 ```shell
